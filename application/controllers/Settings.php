@@ -47,8 +47,10 @@ class Settings extends CI_Controller
 
         if ($valid->run() === false) {
             $this->session->set_flashdata('gagal', validation_errors());
+            $menu = $this->m_master->data('tb_kategori')->result();
             $data = array(
                 'title'        => 'Ganti Password',
+                'menu'  => $menu,
                 'isi'        => 'admin/v_ganti'
             );
             $this->load->view('layout/wrapper', $data);

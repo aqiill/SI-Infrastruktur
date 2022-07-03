@@ -15,9 +15,11 @@ class Master extends CI_Controller
     public function tahun()
     {
         $tahun = $this->m_master->data('tb_tahun')->result();
+        $menu = $this->m_master->data('tb_kategori')->result();
         $data = [
             'title' => 'data tahun',
             'tahun' => $tahun,
+            'menu'  => $menu,
             'isi'   => 'admin/v_tahun.php'
         ];
         $this->load->view('layout/wrapper', $data);
@@ -65,9 +67,11 @@ class Master extends CI_Controller
     public function kategori()
     {
         $kategori = $this->m_master->data('tb_kategori')->result();
+
         $data = [
             'title' => 'data kategori',
             'kategori' => $kategori,
+            'menu' => $kategori,
             'isi'   => 'admin/v_kategori.php'
         ];
         $this->load->view('layout/wrapper', $data);
@@ -136,9 +140,11 @@ class Master extends CI_Controller
     public function users()
     {
         $users = $this->m_master->data('tb_users')->result();
+        $menu = $this->m_master->data('tb_kategori')->result();
         $data = [
             'title' => 'data users',
             'users' => $users,
+            'menu'  => $menu,
             'isi'   => 'admin/v_users.php'
         ];
         $this->load->view('layout/wrapper', $data);

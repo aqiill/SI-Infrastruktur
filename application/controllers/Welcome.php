@@ -19,22 +19,9 @@ class Welcome extends CI_Controller
 
 	public function data()
 	{
-		$data = $this->m_capaian->data('tb_capaian')->result();
+		$data = $this->m_capaian->data('tb_hasil_capaian')->result();
 		echo "<pre>";
 		print_r($data);
 		echo "<pre>";
-
-		echo "<table border=2>";
-		foreach ($data as $value) {
-			echo "<tr>";
-			echo "<td>" . $value->satuan . "</td>";
-			echo "<td>" . $value->uraian . "</td>";
-			echo "<td>" . $value->tahun . "</td>";
-			echo "<td>" . $value->capaian . "</td>";
-			echo "<td>" . $value->sumber . "</td>";
-			echo "<td>" . $value->nama_kategori . "</td>";
-			echo "</tr>";
-		}
-		echo "</table>";
 	}
 }

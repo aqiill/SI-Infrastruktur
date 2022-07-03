@@ -83,10 +83,32 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">MAIN NAVIGATION</li>
-            <li><a href="<?= base_url('beranda'); ?>"><i class="fa fa-dashboard"></i> <span>Beranda</span></a></li>
-            <li><a href="<?= base_url('beranda'); ?>"><i class="fa fa-book"></i> <span>Data Infrastruktur</span></a>
+            <li class="<?php if ($this->uri->segment(1) == "beranda") {
+                            echo "active";
+                        } ?>"><a href="<?= base_url('beranda'); ?>"><i class="fa fa-dashboard"></i>
+                    <span>Beranda</span></a></li>
+            <li class="treeview <?php if ($this->uri->segment(1) == "infrastruktur") {
+                                    echo "active";
+                                } ?>">
+                <a href="#">
+                    <i class="fa fa-book"></i>
+                    <span>Data Infrastruktur</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <?php foreach ($menu as $value) { ?>
+                    <li><a href="<?= base_url('infrastruktur/kategori/' . $value->id_kategori); ?>"><i
+                                class="fa fa-circle-o"></i>
+                            <?= ucwords($value->nama_kategori); ?></a></li>
+                    <?php } ?>
+                </ul>
             </li>
-            <li class="treeview">
+
+            <li class="treeview <?php if ($this->uri->segment(1) == "master") {
+                                    echo "active";
+                                } ?>">
                 <a href="#">
                     <i class="fa fa-dashboard"></i> <span>Master Data</span>
                     <span class="pull-right-container">
@@ -94,13 +116,25 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="<?= base_url('master/tahun'); ?>"><i class="fa fa-circle-o"></i> Tahun</a></li>
-                    <li><a href="<?= base_url('master/kategori'); ?>"><i class="fa fa-circle-o"></i> Kategori</a></li>
-                    <li><a href="<?= base_url('master/users'); ?>"><i class="fa fa-circle-o"></i> User</a></li>
+                    <li class="<?php if ($this->uri->segment(2) == "tahun") {
+                                    echo "active";
+                                } ?>"><a href="<?= base_url('master/tahun'); ?>"><i class="fa fa-circle-o"></i>
+                            Tahun</a></li>
+                    <li class="<?php if ($this->uri->segment(2) == "kategori") {
+                                    echo "active";
+                                } ?>"><a href="<?= base_url('master/kategori'); ?>"><i class="fa fa-circle-o"></i>
+                            Kategori</a></li>
+                    <li class="<?php if ($this->uri->segment(2) == "users") {
+                                    echo "active";
+                                } ?>"><a href="<?= base_url('master/users'); ?>"><i class="fa fa-circle-o"></i>
+                            User</a></li>
                 </ul>
             </li>
             <li class="header">SETTINGS</li>
-            <li><a href="<?= base_url('settings/password'); ?>"><i class="fa fa-circle-o text-yellow"></i> <span>Ganti
+            <li class="<?php if ($this->uri->segment(2) == "password") {
+                            echo "active";
+                        } ?>"><a href="<?= base_url('settings/password'); ?>"><i
+                        class="fa fa-circle-o text-yellow"></i> <span>Ganti
                         Password</span></a></li>
             <li><a href="<?= base_url('logout'); ?>"><i class="fa fa-circle-o text-aqua"></i> <span>Logout</span></a>
             </li>
