@@ -41,7 +41,7 @@ class Login extends CI_Controller
             $data = [
                 'title' => 'SINFRAS'
             ];
-            $this->load->view('login', $data);
+            $this->load->view('v_login', $data);
         } else {
             $i = $this->input;
 
