@@ -85,4 +85,14 @@ class Infrastruktur extends CI_Controller
         $this->session->set_flashdata('sukses', 'Data berhasil ditambahkan!');
         redirect(base_url('infrastruktur/capaian/' . $id_capaian));
     }
+
+    public function hapus_capaian($id_capaian = null, $id_hasil_capaian = null)
+    {
+        if ($id_capaian == "" || $id_hasil_capaian == "") show_404();
+
+        $this->m_master->delete('tb_hasil_capaian', 'id_hasil_capaian', $id_hasil_capaian);
+
+        $this->session->set_flashdata('sukses', 'Data berhasil dihapus!');
+        redirect(base_url('infrastruktur/capaian/' . $id_capaian));
+    }
 }

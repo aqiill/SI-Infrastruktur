@@ -28,13 +28,17 @@
                 </div>
                 <?php } ?>
 
-                <button type="button" class="btn btn-primary" style="margin-bottom: 5px;" data-toggle="modal"
+                <button type="button" class="btn btn-primary pull-right" style="margin-bottom: 5px;" data-toggle="modal"
                     data-target="#modal-default">
                     Tambah Data
                 </button>
             </div>
-            <div class="col-xs-12">
-
+            <div class="col-12 col-md-6">
+                <div class="box">
+                    <canvas id="myChart"></canvas>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
                 <div class="box">
                     <?php if (isset($hasil_capaian[0])) { ?>
                     <div class="box-header text-center ">
@@ -64,9 +68,9 @@
                                     <td><?= $value->satuan; ?></td>
                                     <td><?= $value->capaian; ?></td>
                                     <td>
-                                        <a href="<?= base_url('master/hapus_capaian/' . $value->id_capaian); ?>"
+                                        <a href="<?= base_url('infrastruktur/hapus_capaian/' . $value->id_capaian . '/' . $value->id_hasil_capaian); ?>"
                                             class="btn btn-danger btn-small"
-                                            onclick="return confirm('Anda yakin menghapus data <?= $value->uraian ?>?')">Hapus</a>
+                                            onclick="return confirm('Anda yakin menghapus data capaian <?= $value->capaian ?>?')">Hapus</a>
                                     </td>
                                 </tr>
                                 <?php } ?>
@@ -115,7 +119,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="capaian">Capaian</label>
-                                <input type="number" name="capaian" required id="capaian" class="form-control">
+                                <input type="number" step="any" name="capaian" required id="capaian"
+                                    class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="satuan">Satuan</label>
