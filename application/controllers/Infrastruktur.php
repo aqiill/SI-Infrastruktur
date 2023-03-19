@@ -10,6 +10,15 @@ class Infrastruktur extends CI_Controller
         $this->load->model(['m_capaian', 'm_master']);
         $this->load->helper(array('form', 'url'));
         $this->load->library('form_validation');
+        // $this->ceklogin();
+    }
+
+    public function ceklogin()
+    {
+        if (!$this->session->userdata('email')) {
+            $this->session->set_flashdata('gagal', 'Silahkan Login!');
+            redirect(base_url('login'), 'refresh');
+        }
     }
 
     public function kategori($kategori)
@@ -30,7 +39,7 @@ class Infrastruktur extends CI_Controller
 
     public function tambah_capaian($id_kategori = null)
     {
-        if ($id_kategori == null) show_404();
+        if ($id_kategori == null || $this->session->userdata('email') == "") show_404();
 
         $data = [
             'uraian' => $this->input->post('uraian'),
@@ -71,7 +80,7 @@ class Infrastruktur extends CI_Controller
 
     public function tambah_hasil_capaian($id_capaian = null)
     {
-        if ($id_capaian == null) show_404();
+        if ($id_capaian == null || $this->session->userdata('email') == "") show_404();
 
         $data = [
             'id_capaian' => $id_capaian,
@@ -86,13 +95,80 @@ class Infrastruktur extends CI_Controller
         redirect(base_url('infrastruktur/capaian/' . $id_capaian));
     }
 
-    public function hapus_capaian($id_capaian = null, $id_hasil_capaian = null)
+    public function hapus_hasil_capaian($id_capaian = null, $id_hasil_capaian = null)
     {
-        if ($id_capaian == "" || $id_hasil_capaian == "") show_404();
+        if ($id_capaian == "" || $id_hasil_capaian == "" || $this->session->userdata('email') == "") show_404();
 
         $this->m_master->delete('tb_hasil_capaian', 'id_hasil_capaian', $id_hasil_capaian);
 
         $this->session->set_flashdata('sukses', 'Data berhasil dihapus!');
         redirect(base_url('infrastruktur/capaian/' . $id_capaian));
+    }
+
+    public function hapus_capaian($id_kategori = null, $id_capaian = null)
+    {
+        if ($id_kategori == "" || $id_capaian == "" || $this->session->userdata('email') == "") show_404();
+
+        $this->m_master->delete('tb_capaian', 'id_capaian', $id_capaian);
+
+        $this->session->set_flashdata('sukses', 'Data berhasil dihapus!');
+        redirect(base_url('infrastruktur/kategori/' . $id_kategori));
+    }
+
+    public function cari()
+    {
+        $valid = $this->form_validation;
+
+        $valid->set_rules(
+            'cari',
+            'Cari',
+            'required|alpha_numeric_spaces',
+            array(
+                'required'        => 'Cari harus diisi',
+                'alpha_numeric_spaces'        => 'Pencarian tidak valid!',
+            )
+        );
+
+        // $valid->set_rules(
+        //     'kategori',
+        //     'Kategori',
+        //     'required|numeric',
+        //     array(
+        //         'required'        => 'Kategori harus diisi',
+        //         'numeric'        => 'Pencarian tidak valid!',
+        //     )
+        // );
+
+        // $valid->set_rules(
+        //     'tahun',
+        //     'Tahun',
+        //     'required|numeric',
+        //     array(
+        //         'required'        => 'Tahun harus diisi',
+        //         'numeric'        => 'Pencarian tidak valid!',
+        //     )
+        // );
+
+        if ($valid->run() === false) {
+            $this->session->set_flashdata('gagal', validation_errors());
+            redirect(base_url());
+        } else {
+            $i = $this->input;
+
+            $cari = $i->post('cari');
+            // $kategori = $i->post('kategori');
+            // $tahun = $i->post('tahun');
+
+            $hasil = $this->m_capaian->cari($cari)->result();
+            $menu = $this->m_master->data('tb_kategori')->result();
+            $data = [
+                'isi' => 'v_cari',
+                'title' => 'hasil pencarian',
+                'menu' => $menu,
+                'cari' => $cari,
+                'hasil' => $hasil
+            ];
+            $this->load->view('layout/wrapper', $data);
+        }
     }
 }

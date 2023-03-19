@@ -29,4 +29,14 @@ class M_capaian extends CI_Model
         $this->db->where($table . '.id_capaian', $id_capaian);
         return $this->db->get();
     }
+
+    public function cari($cari)
+    {
+        $this->db->select('*');
+        $this->db->from('tb_capaian');
+        $this->db->join('tb_kategori', 'tb_capaian.id_kategori = tb_kategori.id_kategori');
+        $this->db->like('uraian', $cari);
+        $this->db->or_like('sumber', $cari);
+        return $this->db->get();
+    }
 }

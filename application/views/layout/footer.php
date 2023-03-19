@@ -1,9 +1,9 @@
   <!-- /.content-wrapper -->
   <footer class="main-footer">
       <div class="pull-right hidden-xs">
-          <b>Version</b> 2.4.18
+          <b>Version</b> 1.0.0
       </div>
-      <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE</a>.</strong> All rights
+      <strong>Copyright &copy; 2022 <a href="https://bit.ly/kojolah">Kojolah Sandbox</a>.</strong> All rights
       reserved.
   </footer>
 
@@ -32,33 +32,7 @@
   <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
   <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script>
-const labels = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-];
 
-const data = {
-    labels: labels,
-    datasets: [{
-        label: 'My First dataset',
-        backgroundColor: 'rgb(255, 99, 132)',
-        borderColor: 'rgb(255, 99, 132)',
-        data: [0, 10, 5, 2, 20, 30, 45],
-    }]
-};
-
-const config = {
-    type: 'line',
-    data: data,
-    options: {}
-};
-  </script>
 
 
   <script>
@@ -94,7 +68,7 @@ $(function() {
 
   <?php if ($this->uri->segment(2) == "capaian") { ?>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
 var tahun = [];
 var capaian = [];
@@ -105,30 +79,28 @@ capaian.push(<?= $value->capaian ?>);
 <?php            }
             ?>
 
-var xValues = tahun;
-var yValues = capaian;
-var barColors = ["dark", "green", "blue", "orange", "brown", "red", "silver", "lime", "navy", "bisque"];
-var judul = '<?= ucwords(strtolower($hasil_capaian[0]->uraian)); ?>';
+const labels = tahun;
 
-new Chart("myChart", {
-    type: "bar",
-    data: {
-        labels: xValues,
-        datasets: [{
-            backgroundColor: barColors,
-            data: yValues
-        }]
-    },
-    options: {
-        legend: {
-            display: false
-        },
-        title: {
-            display: true,
-            text: judul
-        }
-    }
-});
+const data = {
+    labels: labels,
+    datasets: [{
+        label: 'Capaian',
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgb(255, 99, 132)',
+        data: capaian,
+    }]
+};
+
+const config = {
+    type: 'line',
+    data: data,
+    options: {}
+};
+
+const myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+);
   </script>
 
   <?php } ?>

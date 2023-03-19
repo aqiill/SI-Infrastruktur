@@ -27,11 +27,12 @@
                     </div>
                 </div>
                 <?php } ?>
-
+                <?php if ($this->session->userdata('email') != "") { ?>
                 <button type="button" class="btn btn-primary" style="margin-bottom: 5px;" data-toggle="modal"
                     data-target="#modal-default">
                     Tambah Data
                 </button>
+                <?php } ?>
             </div>
             <div class="col-xs-12">
 
@@ -46,7 +47,9 @@
                                     <th>Uraian</th>
                                     <th>Sumber</th>
                                     <th>Kategori</th>
+                                    <?php if ($this->session->userdata('email') != "") { ?>
                                     <th>Aksi</th>
+                                    <?php } ?>
                                 </tr>
                             </thead>
                             <tbody>
@@ -59,11 +62,13 @@
                                             href="<?= base_url('infrastruktur/capaian/' . $value->id_capaian); ?>"><?= $value->sumber; ?></a>
                                     </td>
                                     <td><?= $value->nama_kategori; ?></td>
+                                    <?php if ($this->session->userdata('email') != "") { ?>
                                     <td>
-                                        <a href="<?= base_url('master/hapus_capaian/' . $value->id_capaian); ?>"
+                                        <a href="<?= base_url('infrastruktur/hapus_capaian/' . $value->id_kategori . "/" . $value->id_capaian); ?>"
                                             class="btn btn-danger btn-small"
                                             onclick="return confirm('Anda yakin menghapus data <?= $value->uraian ?>?')">Hapus</a>
                                     </td>
+                                    <?php } ?>
                                 </tr>
                                 <?php } ?>
                             </tbody>
@@ -79,6 +84,7 @@
     </section>
     <!-- /.content -->
 
+    <?php if ($this->session->userdata('email') != "") { ?>
     <!-- Modal -->
     <div class="modal fade" id="modal-default">
         <div class="modal-dialog">
@@ -112,3 +118,4 @@
             </div>
         </div>
     </div>
+    <?php } ?>

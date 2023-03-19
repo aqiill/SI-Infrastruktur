@@ -10,6 +10,15 @@ class Master extends CI_Controller
         $this->load->model(['m_master']);
         $this->load->helper(array('form', 'url'));
         $this->load->library('form_validation');
+        $this->ceklogin();
+    }
+
+    public function ceklogin()
+    {
+        if (!$this->session->userdata('email')) {
+            $this->session->set_flashdata('gagal', 'Silahkan Login!');
+            redirect(base_url('login'), 'refresh');
+        }
     }
 
     public function tahun()

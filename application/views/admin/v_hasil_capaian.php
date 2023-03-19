@@ -28,10 +28,12 @@
                 </div>
                 <?php } ?>
 
+                <?php if ($this->session->userdata('email') != "") { ?>
                 <button type="button" class="btn btn-primary pull-right" style="margin-bottom: 5px;" data-toggle="modal"
                     data-target="#modal-default">
                     Tambah Data
                 </button>
+                <?php } ?>
             </div>
             <div class="col-12 col-md-6">
                 <div class="box">
@@ -56,7 +58,9 @@
                                     <th>Tahun</th>
                                     <th>Satuan</th>
                                     <th>Capaian</th>
+                                    <?php if ($this->session->userdata('email') != "") { ?>
                                     <th>Aksi</th>
+                                    <?php } ?>
                                 </tr>
                             </thead>
                             <tbody>
@@ -67,11 +71,13 @@
                                     <td><?= $value->tahun; ?></td>
                                     <td><?= $value->satuan; ?></td>
                                     <td><?= $value->capaian; ?></td>
+                                    <?php if ($this->session->userdata('email') != "") { ?>
                                     <td>
-                                        <a href="<?= base_url('infrastruktur/hapus_capaian/' . $value->id_capaian . '/' . $value->id_hasil_capaian); ?>"
+                                        <a href="<?= base_url('infrastruktur/hapus_hasil_capaian/' . $value->id_capaian . '/' . $value->id_hasil_capaian); ?>"
                                             class="btn btn-danger btn-small"
                                             onclick="return confirm('Anda yakin menghapus data capaian <?= $value->capaian ?>?')">Hapus</a>
                                     </td>
+                                    <?php } ?>
                                 </tr>
                                 <?php } ?>
                             </tbody>
@@ -87,7 +93,7 @@
     </section>
     <!-- /.content -->
 
-
+    <?php if ($this->session->userdata('email') != "") { ?>
     <!-- Modal -->
     <div class="modal fade" id="modal-default">
         <div class="modal-dialog">
@@ -108,10 +114,10 @@
                                     <option disabled selected>Pilih</option>
                                     <?php foreach ($tahun as $t) { ?>
                                     <option <?php foreach ($hasil_capaian as $c) {
-                                                    if ($t->id_tahun == $c->id_tahun) {
-                                                        echo "disabled";
-                                                    }
-                                                } ?> value="<?= $t->id_tahun ?>">
+                                                        if ($t->id_tahun == $c->id_tahun) {
+                                                            echo "disabled";
+                                                        }
+                                                    } ?> value="<?= $t->id_tahun ?>">
                                         <?= $t->tahun ?>
                                     </option>
                                     <?php } ?>
@@ -138,3 +144,4 @@
             </div>
         </div>
     </div>
+    <?php } ?>

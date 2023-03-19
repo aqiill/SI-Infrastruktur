@@ -7,21 +7,19 @@ class Welcome extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model(['m_capaian']);
+		$this->load->model(['m_capaian', 'm_master']);
 		$this->load->helper(array('form', 'url'));
 		$this->load->library('form_validation');
 	}
 
 	public function index()
 	{
-		$this->load->view('welcome_message');
-	}
-
-	public function data()
-	{
-		$data = $this->m_capaian->data('tb_hasil_capaian')->result();
-		echo "<pre>";
-		print_r($data);
-		echo "<pre>";
+		$menu = $this->m_master->data('tb_kategori')->result();
+		$data = [
+			'isi'	=> 'v_home',
+			'menu'	=> $menu,
+			'title'	=> 'database'
+		];
+		$this->load->view('layout/wrapper', $data);
 	}
 }

@@ -36,7 +36,7 @@
         <!-- /.login-logo -->
         <div class="login-box-body">
             <div class="login-logo">
-                <a href="<?= base_url('login'); ?>"><b>SIN</b>FRAS</a>
+                <a href="<?= base_url(); ?>"><b>SIN</b>FRAS</a>
             </div>
             <form action="<?= base_url('login'); ?>" method="post">
                 <?php if ($this->session->flashdata('gagal') != "") { ?>

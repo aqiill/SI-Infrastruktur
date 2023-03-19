@@ -10,6 +10,14 @@ class Login extends CI_Controller
         $this->load->model(['m_login']);
         $this->load->helper(['url', 'form']);
         $this->load->library('form_validation');
+        $this->ceklogin();
+    }
+
+    public function ceklogin()
+    {
+        if ($this->session->userdata('email') != "") {
+            redirect(base_url('beranda'), 'refresh');
+        }
     }
 
     public function index()
